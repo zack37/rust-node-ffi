@@ -1,0 +1,11 @@
+[package]
+authors = ["Zack Smith <zack.smith@motorolasolutions.com>"]
+name = "ffi"
+version = "0.1.0"
+
+[dependencies]
+num = "0.1.36"
+
+[lib]
+crate-type = ["dylib"]
+name = "ffi"
