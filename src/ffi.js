@@ -9,4 +9,12 @@ const lib = ffi.Library(path.resolve(path.join(__dirname, '..', 'target', 'relea
 
 const [node, file, fn, ...args] = process.argv;
 
-console.log(`Result of ${fn}: ${lib[fn](...args)}`);
+function invoke(fn, rgs) {
+	target = lib[fn];
+	if(!target) {
+		throw new Error(`${fn} is not linked to the library interface`);
+	}
+	return target(...rgs);
+}
+
+console.log(`Result of ${fn}: ${invoke(fn, args)}`);
