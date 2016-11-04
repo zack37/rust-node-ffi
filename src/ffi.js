@@ -10,11 +10,20 @@ const lib = ffi.Library(path.resolve(path.join(__dirname, '..', 'target', 'relea
 const [node, file, fn, ...args] = process.argv;
 
 function invoke(fn, rgs) {
-	target = lib[fn];
-	if(!target) {
-		throw new Error(`${fn} is not linked to the library interface`);
-	}
-	return target(...rgs);
+	return new Promise((resolve, reject) => {
+		target = lib[fn];
+		if(!target) {
+			return reject(new Error(`${fn} is not linked to the library interface`));
+		}
+		return target.async(...rgs, (err, result) => {
+			if(err) {
+				return reject(err);
+			}
+			resolve(result);
+		});
+	});
 }
 
-console.log(`Result of ${fn}: ${invoke(fn, args)}`);
+return invoke(fn, args)
+	.then(console.log.bind(console, `Result of ${fn}:`))
+	.catch(console.error.bind(console));

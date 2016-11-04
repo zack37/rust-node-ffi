@@ -25,7 +25,7 @@ pub extern fn are_any_points_in_path(pseudo_x: f32, pseudo_y: f32) -> bool {
 fn fibonacci_inner(n: usize, a: usize, b:usize) -> usize {
     match n {
         0 => a,
-        n => fibonacci_inner(n-1, b, a+b)
+        _ => fibonacci_inner(n-1, b, a+b)
     }
 }
 
@@ -57,5 +57,4 @@ pub extern fn largest_collatz_sequence(limit: usize) -> usize {
     (1..limit).map(|x| collatz_inner(x, vec![]))
         .max_by_key(|x| x.len())
         .map_or(0, |v| v[0])
-
 }
