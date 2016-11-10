@@ -1,3 +1,8 @@
+extern crate chrono;
+extern crate num;
+
+pub mod project_euler;
+
 #[no_mangle]
 pub extern fn is_point_in_path (x: f32, y: f32, poly: &[(f32, f32)]) -> bool {
     let num = poly.len();
@@ -35,26 +40,23 @@ pub extern fn fibonacci(n: usize) -> usize {
 }
 
 fn get_next_collatz_number(n: usize) -> usize {
-    match n&1 {
-        0 => n/2,
-        _ => 3*n+1
-    }
+    if n&1 == 0 { n/2 } else { 3*n+1 }
 }
 
-fn collatz_inner(n: usize, sequence: Vec<usize>) -> Vec<usize> {
-    let mut s = sequence;
-    if n == 1 {
-        s.push(n);
-        return s;
+fn collatz_inner(n: usize) -> Vec<usize> {
+    let mut sequence = vec![];
+    let mut i = n;
+    while i > 1 {
+        sequence.push(i);
+        i = get_next_collatz_number(i);
     }
-    let new_n = get_next_collatz_number(n);
-    s.push(n);
-    collatz_inner(new_n, s)
+    sequence.push(1);
+    sequence
 }
 
 #[no_mangle]
 pub extern fn largest_collatz_sequence(limit: usize) -> usize { 
-    (1..limit).map(|x| collatz_inner(x, vec![]))
+    (1..limit).map(collatz_inner)
         .max_by_key(|x| x.len())
         .map_or(0, |v| v[0])
 }
