@@ -7,3 +7,20 @@ pub extern fn largest_product_in_a_series(n: usize) -> usize {
 		.max()
 		.unwrap()
 }
+
+#[cfg(test)]
+mod tests {
+
+	use super::*;
+
+	#[test]
+	fn largest_product_in_a_series_4() {
+		assert_eq!(largest_product_in_a_series(4), 5832);
+	}
+
+	#[test]
+	fn largest_product_in_a_series_13() {
+		assert_eq!(largest_product_in_a_series(13), 23514624000);
+	}
+
+}

@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 use num::bigint::BigUint;
-use num::{pow ,FromPrimitive};
+use num::{pow, FromPrimitive};
 
 #[no_mangle]
 pub extern fn distinct_powers(limit: usize) -> usize {

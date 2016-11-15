@@ -23,8 +23,18 @@ pub mod problem_21;
 
 
 
- pub mod problem_25;
+
 
 
 
 pub mod problem_29;
+pub mod problem_30;
+
+
+
+pub mod problem_34;
+pub mod problem_44;
+pub mod problem_48;
+pub mod problem_50;
+pub mod problem_53;
+pub mod problem_56;
